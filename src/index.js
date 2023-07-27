@@ -13,9 +13,16 @@ const query = gql`
   }
 `
 
+// client.query({query})
+//   .then(({data}) => console.log('data', data))
+//   .catch(console.error)
+
+// ローカルのメモリにキャッシュされたレスポンスを確認する(client.extract())
+console.log('cache', client.extract())
 client.query({query})
-  .then(({data}) => console.log('data', data))
+  .then(() => console.log('cache', client.extract()))
   .catch(console.error)
+
 
 render(
   <React.StrictMode>
