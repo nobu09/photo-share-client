@@ -1,5 +1,5 @@
 import React from 'react';
-import User from './User';
+import Users from './Users';
 import { gql } from 'apollo-boost';
 
 export const ROOT_QUERY = gql`
@@ -13,5 +13,5 @@ export const ROOT_QUERY = gql`
   }
 `
 
-const App = () => <User />;
+const App = () => <Users />;
 export default App;
