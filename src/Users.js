@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { ROOT_QUERY } from './App';
 
 const Users = () =>
-  <Query query={ROOT_QUERY}>
+  <Query query={ROOT_QUERY} pollInterval={1000}>
     { ({data, loading, refetch}) => loading ?
       <p>loading users...</p> :
       <UserList count={data.totalUsers}
