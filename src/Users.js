@@ -1,5 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import { gql } from 'apollo-boost';
 import { ROOT_QUERY } from './App';
 
 const Users = () =>
@@ -28,5 +29,15 @@ const UserListItem = ({name, avatar}) =>
     <img src={avatar} width={48} height={48} alt="" />
     {name}
   </li>
+
+const ADD_FAKE_USERS_MUTATION = gql`
+  mutation addFakeUsers($count:Int!) {
+    addFakeUsers(count: $count) {
+      githubLogin
+      name
+      avatar
+    }
+  }
+`
 
 export default Users;
