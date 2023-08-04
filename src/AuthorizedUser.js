@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
 const AuthorizedUser = () => {
   const [signingIn, setSigningIn] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (window.location.search.match(/code=/)) {
@@ -11,7 +12,7 @@ const AuthorizedUser = () => {
       const code = window.location.search.replace("?code=", "");
       alert(code);
       // ユーザーをリダイレクトする
-      this.props.history.replace('/');
+      history.replace('/');
     }
   }, []);
 
