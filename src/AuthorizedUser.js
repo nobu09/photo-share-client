@@ -25,7 +25,7 @@ const AuthorizedUser = () => {
     <button onClick={requestCode} disabled={signingIn}>
       Sign In with GitHub
     </button>
-  )
+  );
 }
 
 export default withRouter(AuthorizedUser);
