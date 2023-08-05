@@ -1,8 +1,13 @@
 import React from 'react';
 
 const AuthorizedUser = () => {
+  const requestCode = () => {
+    const clientID = process.env.GITHUB_CLIENT_ID;
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`;
+  };
+
   return (
-    <button>
+    <button onClick={requestCode}>
       Sign In with GitHub
     </button>
   );
