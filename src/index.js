@@ -29,7 +29,6 @@ client.query({query})
   .then(() => console.log('cache', client.extract()))
   .catch(console.error)
 
-
 render(
   <ApolloProvider client={client}>
     <App />
