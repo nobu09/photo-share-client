@@ -42,10 +42,9 @@ class AuthorizedUser extends Component {
           {mutation => {
             this.githubAuthMutation = mutation;
             return (
-              <button onClick={this.requestCode} disabled={this.state.signingIn}>
-                Sign In with GitHub
-              </button>
-
+              <Me signingIn={this.state.signingIn}
+                requestCode={this.requestCode}
+                logout={() => localStrage.removeItem('token')} />
             )
           }}
       </Mutation>
