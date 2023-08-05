@@ -5,7 +5,16 @@ import App from './App';
 import { ApolloProvider } from 'react-apollo'
 import ApolloClient, { gql } from 'apollo-boost';
 
-const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' })
+const client = new ApolloClient({ uri: 'http://localhost:4000/graphql',
+  request: operation => {
+    operation.setContext(context => ({
+      headers: {
+        ...context.headers,
+        authorization: localStorage.getItem('token')
+      }
+    }))
+  }
+ });
 
 const query = gql`
   {
@@ -13,10 +22,6 @@ const query = gql`
     totalPhotos
   }
 `
-
-// client.query({query})
-//   .then(({data}) => console.log('data', data))
-//   .catch(console.error)
 
 // ローカルのメモリにキャッシュされたレスポンスを確認する(client.extract())
 console.log('cache', client.extract())
