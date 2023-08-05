@@ -1,18 +1,30 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 
-function AuthorizedUser() {
-  const [signingIn, setSigningIn] = useState(false); // eslint-disable-line
+class AuthorizedUser extends Component {
+  state = { signingIn: false };
 
-  const requestCode = () => {
+  componentDidMount() {
+    if (window.location.search.match(/code=/)) {
+      this.setState({ signingIn: true });
+      const code = window.location.search.replace("?code=", "");
+      alert(code);
+      this.props.history.replace("/");
+    }
+  }
+
+  requestCode() {
     const clientID = "";
     window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`;
   };
 
-  return (
-    <button onClick={requestCode} disabled={signingIn}>
-      Sign In with GitHub
-    </button>
-  );
+  render() {
+    return (
+      <button onClick={this.requestCode} disabled={this.state.signingIn}>
+        Sign In with GitHub
+      </button>
+    );
+  }
 }
 
-export default AuthorizedUser;
+export default withRouter(AuthorizedUser);
