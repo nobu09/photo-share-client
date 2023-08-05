@@ -1,35 +1,8 @@
-import React, { useState, useEffect } from 'react';
-// import { useHistory, withRouter } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
+import React from 'react';
 
-const AuthorizedUser = () => {
-  const [signingIn, setSigningIn] = useState(false);
-//   const history = useHistory();
-
-  useEffect(() => {
-    if (window.location.search.match(/code=/)) {
-      setSigningIn(true);
-      // コードを取得する
-      const code = window.location.search.replace("?code=", "");
-      alert(code);
-      // ユーザーをリダイレクトする
-    //   history.replace('/');
-    }
-  }, []);
-
-//   const requestCode = () => {
-//     const clientID = process.env.GITHUB_CLIENT_ID;
-//     console.log(clientID);
-//     window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`;
-//   };
-
-  return (
-    // <button onClick={requestCode} disabled={signingIn}>
-    <button disabled={signingIn}>
-      Sign In with GitHub
-    </button>
-  );
-}
+const AuthorizedUser = () => 
+  <button>
+    Sign In with GitHub
+  </button>
 
 export default AuthorizedUser;
-// export default withRouter(AuthorizedUser);
