@@ -57,6 +57,11 @@ class AuthorizedUser extends Component {
 
   logout = () => {
     localStorage.removeItem("token");
+    // キャッシュのデータを読み込む
+    let data = this.props.client.readQuery({ query: ROOT_QUERY });
+    data.me = null;
+    // キャッシュのデータを書き換える
+    this.props.client.writeQuery({ query: ROOT_QUERY, data });
   }
 
   render() {
