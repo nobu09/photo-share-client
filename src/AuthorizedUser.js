@@ -15,7 +15,7 @@ const Me = ({ logout, requestCode, signingIn }) =>
     {({ loading, data }) => data.me ?
       <CurrentUser {...data.me} logout={logout} /> :
       loading ?
-        <p>loading... </p>:
+        <p>loading... </p> :
         <button
           onClick={requestCode}
           disabled={signingIn}>
@@ -38,8 +38,7 @@ class AuthorizedUser extends Component {
     if (window.location.search.match(/code=/)) {
       this.setState({ signingIn: true });
       const code = window.location.search.replace("?code=", "");
-      alert(code);
-      this.props.history.replace("/");
+      this.githubAuthMutation({variables: {code}})
     }
   }
 
@@ -55,6 +54,10 @@ class AuthorizedUser extends Component {
     window.location = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=user`;
   };
 
+  logout = () => {
+    localStorage.removeItem("token");
+  }
+
   render() {
     return (
       <Mutation mutation={GITHUB_AUTH_MUTATION} 
@@ -65,7 +68,7 @@ class AuthorizedUser extends Component {
             return (
               <Me signingIn={this.state.signingIn}
                 requestCode={this.requestCode}
-                logout={() => localStorage.removeItem('token')} />
+                logout={this.logout} />
             )
           }}
       </Mutation>
