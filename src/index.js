@@ -12,7 +12,14 @@ persistCache({
   storage: localStorage
 });
 
-console.log(localStorage['apollo-cache-persist']);
+// キャッシュデータの確認
+console.log(`localStorage['apollo-cache-persist']: ${localStorage['apollo-cache-persist']}`);
+
+// キャッシュがあれば、クライアント作成前にキャッシュデータでローカルのcacheを初期化しておく
+if (localStorage['apollo-cache-persist']) {
+  let cacheData = JSON.parse(localStorage['apollo-cache-persist']);
+  cache.restore(cacheData);
+}
 
 const client = new ApolloClient({
   cache,
