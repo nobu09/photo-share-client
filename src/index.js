@@ -3,9 +3,20 @@ import { render } from 'react-dom'
 import './index.css';
 import App from './App';
 import { ApolloProvider } from 'react-apollo'
-import ApolloClient, { gql } from 'apollo-boost';
+import ApolloClient, { InMemoryCache, gql } from 'apollo-boost';
+import { persistCache } from 'apollo-cache-persist'
 
-const client = new ApolloClient({ uri: 'http://localhost:4000/graphql',
+const cache = new InMemoryCache();
+persistCache({
+  cache,
+  storage: localStorage
+});
+
+console.log(localStorage['apollo-cache-persist']);
+
+const client = new ApolloClient({
+  cache,
+  uri: 'http://localhost:4000/graphql',
   request: operation => {
     operation.setContext(context => ({
       headers: {
