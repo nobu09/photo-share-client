@@ -3,7 +3,9 @@ import { render } from 'react-dom'
 import './index.css';
 import App from './App';
 import { ApolloProvider } from 'react-apollo'
-import ApolloClient, { InMemoryCache, gql } from 'apollo-boost';
+import ApolloClient, { InMemoryCache, gql, HttpLink, ApolloLink, split } from 'apollo-boost';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 import { persistCache } from 'apollo-cache-persist'
 
 const cache = new InMemoryCache();
