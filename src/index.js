@@ -36,6 +36,15 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const httpAuthLink = authLink.concat(httpLink);
 
+const link = split(
+  ({query}) => {
+  const { kind, operation } = getMainDefinition(query);
+  return kind === 'OperationDefinition' && operation === 'subscription'
+  },
+  wsLink,
+  httpAuthLink
+)
+
 const wsLink = new WebSocketLink({ uri: 'ws://localhost:4000/graphql', options: { reconnect: true }});
 
 const client = new ApolloClient({
