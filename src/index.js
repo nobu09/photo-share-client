@@ -24,6 +24,16 @@ if (localStorage['apollo-cache-persist']) {
 }
 
 const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' });
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext(context => ({
+    headers: {
+      ...context.headers,
+      authorization: localStorage.getItem('token')
+    }
+  }));
+  return forward(operation);
+});
+
 const wsLink = new WebSocketLink({ uri: 'ws://localhost:4000/graphql', options: { reconnect: true }});
 
 const client = new ApolloClient({
