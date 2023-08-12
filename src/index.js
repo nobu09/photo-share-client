@@ -35,6 +35,7 @@ const authLink = new ApolloLink((operation, forward) => {
 });
 
 const httpAuthLink = authLink.concat(httpLink);
+const wsLink = new WebSocketLink({ uri: 'ws://localhost:4000/graphql', options: { reconnect: true }});
 
 const link = split(
   ({query}) => {
@@ -45,20 +46,11 @@ const link = split(
   httpAuthLink
 )
 
-const wsLink = new WebSocketLink({ uri: 'ws://localhost:4000/graphql', options: { reconnect: true }});
 
-const client = new ApolloClient({
+const client = new ApolloClient({ 
   cache,
-  uri: 'http://localhost:4000/graphql',
-  request: operation => {
-    operation.setContext(context => ({
-      headers: {
-        ...context.headers,
-        authorization: localStorage.getItem('token')
-      }
-    }))
-  }
- });
+  link
+})
 
 const query = gql`
   {

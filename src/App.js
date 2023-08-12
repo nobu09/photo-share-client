@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Users from './Users';
 import { BrowserRouter } from 'react-router-dom';
 import { gql } from 'apollo-boost';
@@ -45,17 +45,19 @@ class App extends Component {
       })
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.listenForUsers.unsubscribe()
   }
 
   render() {
-    <BrowserRouter>
-      <div>
-        <AuthorizedUser />
-        <Users />
-      </div>
-    </BrowserRouter>
+    return (
+      <BrowserRouter>
+        <div>
+          <AuthorizedUser />
+          <Users />
+        </div>
+      </BrowserRouter>
+    )
   }
 }
 
