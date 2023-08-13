@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import { gql } from 'apollo-boost'
+import { ROOT_QUERY } from './App'
 
 const POST_PHOTO_MUTATION = gql`
   mutation postPhoto($input: PostPhotoInput!) {
@@ -11,6 +12,15 @@ const POST_PHOTO_MUTATION = gql`
     }
   }
 `
+
+const updatePhotos = (cache, { data: { postPhoto } }) => {
+  let data = cache.readQuery({ query: ROOT_QUERY })
+  data.AllPhotos = [
+    postPhoto,
+    ...data.allPhotos
+  ]
+  cache.writeQuery({ query: ROOT_QUERY, data})
+}
 
 export default class PostPhoto extends Component {
   state = {
