@@ -20,9 +20,13 @@ export default class PostPhoto extends Component {
     file: ''
   }
 
-  postPhoto = (mutation) => {
-    console.log('todo: post photo')
-    console.log(this.state)
+  postPhoto = async (mutation) => {
+    await mutation({
+      variables: {
+        input: this.state
+      }
+    }).catch(console.error)
+    this.props.history.replace('/')
   }
 
   render() {
@@ -71,7 +75,7 @@ export default class PostPhoto extends Component {
         <div style={{ margin: '10px' }}>
           <Mutation mutation={POST_PHOTO_MUTATION} update={updatePhotos}>
             {mutation =>
-              <button onClick={() => this.postPhoto()}>
+              <button onClick={() => this.postPhoto(mutation)}>
                 Post Photo
               </button>
             }
